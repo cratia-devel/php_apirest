@@ -1,6 +1,7 @@
 <?php
-    Route::get('/', function($req, $resp) {
-        echo "ROUTE GET";
+    Route::get('/', function($req, $res) {
+        var_dump($req);
+        var_dump($res);
     });
 ?>
 
