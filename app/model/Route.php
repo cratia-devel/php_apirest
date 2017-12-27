@@ -4,7 +4,6 @@ class Route
 
     public static function get($route, $function) 
     {
-        self::getParams($route);
         if($_SERVER['REQUEST_URI'] == $route) {
             if($_SERVER['REQUEST_METHOD']=='GET'){
                 $request = new Request();
