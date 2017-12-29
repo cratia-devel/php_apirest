@@ -37,8 +37,10 @@ class Database
         return $this->_hasError;
     }
 
-    public function query($query) {
+    public function query($query, $parameters = NULL) {
         $this->stmt = $this->pdo->prepare($query);
+        if(!is_null($parameters))
+            $this->bindParams($parameters);
     }
 
     private function execute() {
@@ -82,6 +84,10 @@ class Database
 
     public function getError() {
         return $this->error;
+    }
+
+    public function commit(){
+        return $this->stmt->execute();
     }
 }
 
