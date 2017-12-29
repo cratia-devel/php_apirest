@@ -2,9 +2,9 @@
 
 class Person extends Model
 {
-    protected $firstname;
-    protected $lastname;
-    protected $age;
+    public $firstname;
+    public $lastname;
+    public $age;
 
     public function __construct() {
         parent::__construct();

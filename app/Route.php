@@ -2,6 +2,9 @@
 
     Route::get('/', function($req, $res) {
         $p = new Person();
+        $p->load(2);
+        $p->firstname = 'Carlos Alberto'; 
+        $res->json(200,$p->save(),NULL);
         //$res->json(200,$p->find(1),NULL);
         //$res->json(200,$p->find(array(1,3,5,10)),NULL);
         /*
@@ -14,7 +17,7 @@
         */
         //$res->json(200,$p->where('lastname','=','Ratia'),NULL);
         //$res->json(200,$p->where(array('lastname','=','Ratia')),NULL);
-        $res->json(200,$p->save(),NULL);
+        //$res->json(200,$p->save(),NULL);
     });
 
     Route::post('/', function($req, $res) {
