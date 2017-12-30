@@ -151,7 +151,7 @@ class Model {
 
     public function prepare_query() {
         $this->query['query'] = $this->query['where'].' '.$this->query['groupby'].' '.$this->query['orderby'].' '.$this->query['limit'];
-        var_dump($this->query['query'],$this->parameters);
+        //var_dump($this->query['query'],$this->parameters);
         //die();
     }
 
@@ -174,7 +174,6 @@ class Model {
         $this->query['groupby'] = 'GROUP BY '.$row.' ';
         return $this;
     }
-
 
     private function _clean_query (){
         $this->query               = array();

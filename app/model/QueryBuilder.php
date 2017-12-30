@@ -11,7 +11,6 @@ class QueryBuilder
         $parameters = array();
         $i = 1;
 
-
         switch ($type_query) {
             case 'INSERT':
                 $query = 'INSERT INTO ' . $table . '';
