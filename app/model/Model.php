@@ -142,6 +142,18 @@ class Model {
         return $values_object;
     }
 
+    public function delete(){
+        
+    }
+
+    public function trash(){
+
+    }
+
+    public function remove() {
+
+    }
+
     public function get() {
         $this->prepare_query();
         $this->db->query($this->query['query'], $this->parameters);
