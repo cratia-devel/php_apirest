@@ -49,7 +49,8 @@ class Database
 
     public function fetchAll() {
         $this->execute();
-        return $this->stmt->fetchAll(PDO::FETCH_ASSOC); 
+        $this->stmt->setFetchMode(PDO::FETCH_ASSOC);;
+        return $this->stmt->fetchAll(); 
     }
 
     public function bindParam($parameter, $variable, $data_type = NULL) {

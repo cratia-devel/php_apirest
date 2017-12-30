@@ -9,8 +9,7 @@ class Response
     );
 
     public function json($http_code = 404, $_data = NULL, $_error = NULL) {
-//        var_dump($_data);
-//        header('Content-Type: application/json');
+        header('Content-Type: application/json');
         http_response_code($http_code);
         $this->message = array(
             'data'  => is_null($_data) ?     array() : $_data,
