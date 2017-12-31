@@ -122,24 +122,27 @@ class Model {
     }
 
     private function _before_commit($type_query = 'DEFAULT') {
+        $this->db->query('DESCRIBE '.$this->table);
+        $describe = $this->db->fetchAll();
+        foreach($describe as $index => $value){
+            $rows[$value['Field']] = '';
+        }
         $values_object = get_object_vars($this);
-
-        unset($values_object['table']);
-        unset($values_object['db']);
-        unset($values_object['db_object_state']);
-        unset($values_object['query']);
-        unset($values_object['parameters']);
-
+        foreach($values_object as $key => $value){
+            if(array_key_exists($key, $rows)){
+                $rows[$key] = $value;
+            }
+        }
         switch ($type_query) {
             case 'INSERT':
-                unset($values_object['id']);
+                unset($rows['id']);
                 break;
             case 'UPDATE':
                 break;
             default:
                 break;
         }
-        return $values_object;
+        return $rows;
     }
 
     public function delete(){
