@@ -38,7 +38,7 @@ class Model
         return $this;
     }
 
-    public function find($params) 
+    public function find(int ...$params): array
     {
         if (is_int($params)) {
             $query = 'SELECT * FROM ' . $this->table . ' WHERE id = :id';
@@ -90,7 +90,7 @@ class Model
         }
     }
 
-    public function load($id)
+    public function load(int $id): bool
     {
         $result = $this->find($id);
         if (empty($result)) {
@@ -158,31 +158,29 @@ class Model
         return $rows;
     }
 
-    public function delete($id = null) 
+    public function delete(int $id = null) 
     {
-        if (is_null($id)) {
-            $this->load($this->id);
-        } else {
-            $this->load($id);    
+        $id = is_null($id)? $this->id : $id;     
+        if($this->load($id)){
+            $values_object = $this->_beforeCommit('UPDATE');
+            $values_object['deleted_at'] = date('Y-m-d H:i:s');
+            $values_object['is_deleted'] = true; 
+            list($query,$parameters) = QueryBuilder::Builder('UPDATE', $this->table, $values_object);
+            $this->db->query($query, $parameters);
+            return $this->db->commit();
         }
-        $values_object = $this->_beforeCommit('UPDATE');
-        $values_object['deleted_at'] = date('Y-m-d H:i:s');
-        $values_object['is_deleted'] = true; 
-        list($query,$parameters) = QueryBuilder::Builder('UPDATE', $this->table, $values_object);
-        $this->db->query($query, $parameters);
-        return $this->db->commit();        
+        return false;        
     }
 
-    public function hardDelete($id = null)
+    public function hardDelete(int $id = null)
     {
-        if (is_null($id)) {
-            $this->load($this->id);
-        } else {
-            $this->load($id);    
+        $id = is_null($id)? $this->id : $id;        
+        if($this->load($id)){
+            list($query,$parameters) = QueryBuilder::Builder('DELETE', $this->table, array('id' => $id));
+            $this->db->query($query, $parameters);
+            return $this->db->commit();
         }
-        list($query,$parameters) = QueryBuilder::Builder('DELETE', $this->table, array('id' => $id));
-        $this->db->query($query, $parameters);
-        return $this->db->commit();   
+        return false;   
     }
 
     public function trash()

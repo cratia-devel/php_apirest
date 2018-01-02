@@ -57,7 +57,7 @@
         $res
             ->status(200)
             ->type('json')
-            ->json($p->delete(array(32,33,34)), null);
+            ->json($p->delete(39), null);
     });
  
     Route::get('/php/php_apirest/person/trash', function($req, $res) {
