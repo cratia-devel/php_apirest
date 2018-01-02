@@ -46,7 +46,7 @@ class Request
         $this->_query = array();
         parse_str($this->query, $this->_query);
 
-        var_dump($this->all());
+        var_dump($_SERVER);
         die();
 
     }
@@ -199,7 +199,19 @@ class Request
     {
         return $_SERVER['REQUEST_METHOD'];
     }
-    
+
+    /**
+     * Method
+     * Get the request method.
+     * 
+     * @return string
+     */
+    function isAjax() 
+    {
+        $band1 = isset($_SERVER['HTTP_X_REQUESTED_WITH']); 
+        $band2 = strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+        return $band1 && $band2;
+    }
 }
 
 ?>
