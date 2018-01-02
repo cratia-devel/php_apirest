@@ -20,8 +20,6 @@ class Response
         }
         else{
             http_response_code(404);
-            var_dump($this);
-            die();
             return $this;
         }
     }
