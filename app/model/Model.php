@@ -190,22 +190,6 @@ class Model
         return $this->_where('is_deleted', '=', true);   
     }
 
-    public function remove($id = null) 
-    {
-        if (is_null($id)) {
-            $this->load($this->id);
-        } else {
-            $this->load($id);    
-        }
-        $this->load($id);
-        $values_object = $this->_beforeCommit('UPDATE');
-        $values_object['deleted_at'] = date('Y-m-d H:i:s');
-        $values_object['is_deleted'] = true; 
-        list($query,$parameters) = QueryBuilder::Builder('UPDATE', $this->table, $values_object);
-        $this->db->query($query, $parameters);
-        return $this->db->commit();
-    }
-
     public function get() 
     {
         $this->prepareQuery();
