@@ -202,9 +202,9 @@ class Request
 
     /**
      * Method
-     * Get the request method.
+     * Determine if the request is the result of an AJAX call.
      * 
-     * @return string
+     * @return bool
      */
     function isAjax() 
     {
@@ -212,6 +212,35 @@ class Request
         $band2 = strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
         return $band1 && $band2;
     }
+
+    /**
+     * Method
+     * Check if an input element is set on the request.
+     * 
+     * @param string $key ###
+     * 
+     * @return bool
+     */
+    function __isset(string $key): bool
+    {
+
+    } 
+
+    /**
+     * Method
+     * Get an input element from the request.
+     * 
+     * @param string $key #
+     * 
+     * @return mixed
+     */
+    function __get(string $key): mixed
+    {
+
+    } 
+
+
+
 }
 
 ?>
