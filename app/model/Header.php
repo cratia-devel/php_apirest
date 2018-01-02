@@ -2,9 +2,14 @@
 
 class Header
 {
+    private $header;
 
-    public function __construct (){
-
+    public function __construct (array $header)
+    {
+        $this->header = array();
+        foreach ($header as $key =>$value) {
+            $this->header[$key] = $value; 
+        }
     }
 
     public function __destruct(){
@@ -24,6 +29,10 @@ class Header
         }
         return $header;
     } 
+
+    public function getHeader(): array {
+        return $this->header;
+    }
 
     public static function set($attr, $value){
         header($attr.':'.$value);
