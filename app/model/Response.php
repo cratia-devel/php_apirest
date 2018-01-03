@@ -13,14 +13,13 @@ class Response
         $this->header = new Header();
     }
 
-    public function status($http_code = 200)
+    public function status($http_code)
     {
-        if(is_int($http_code) && isset($http_code)) {
+        if (is_int($http_code) && isset($http_code)) {
             http_response_code($http_code);
             $this->header::set('Status', $http_code);    
             return $this;
-        }
-        else{
+        } else {
             http_response_code(404);
             return $this;
         }
@@ -28,9 +27,9 @@ class Response
 
     public function type($type = 'json') 
     {
-        if($type === 'text') {
+        if ($type === 'text') {
             $this->header::set('Content-Type', 'text/plain, text/html, text/css, text/javascript; charset=utf-8');
-        } else if($type === 'json') {
+        } else if ($type === 'json') {
             $this->header::set('Content-Type', 'application/json; charset=utf-8');
         } else if ($type === 'html') {
             $this->header::set('Content-Type', 'text/html; charset=utf-8');
@@ -66,5 +65,4 @@ class Response
         exit();
     }
 }
-
 ?>
