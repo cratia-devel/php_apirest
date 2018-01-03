@@ -161,7 +161,7 @@ class Model
     public function delete(int $id = null) 
     {
         $id = is_null($id)? $this->id : $id;     
-        if($this->load($id)){
+        if ($this->load($id)) {
             $values_object = $this->_beforeCommit('UPDATE');
             $values_object['deleted_at'] = date('Y-m-d H:i:s');
             $values_object['is_deleted'] = true; 

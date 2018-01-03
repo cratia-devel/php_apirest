@@ -1,5 +1,15 @@
 <?php
 /**
+ * Request.php
+ * 
+ * @category Public
+ * @package  PACKAGE_EMPTY
+ * @author   Carlos A. Ratia. V <cratia@gmail.com>
+ * @license  GNU General Public License v3.0
+ * @link     https://github.com/cratia-devel/php_apirest
+ */
+
+/**
  * Class Request
  *  
  * @category Public
@@ -41,14 +51,9 @@ class Request
         $this->query = isset($URL_ALL['query'])? $URL_ALL['query'] : null; 
         $this->fragment = isset($URL_ALL['fragment'])? $URL_ALL['fragment'] : null;
 
-        $this->_header = new Header(getallheaders()); 
-        $this->_body = json_decode(file_get_contents('php://input'), true);
-        $this->_query = array();
-        parse_str($this->query, $this->_query);
-
-        var_dump($_SERVER);
-        die();
-
+        $this->_header  = new Header(getallheaders()); 
+        $this->_body    = new BodyMessage();
+        $this->_query   = new QueryString($this->query);
     }
 
     /**
@@ -66,9 +71,9 @@ class Request
      * Method
      * Retrieve a body from the request.
      * 
-     * @return array
+     * @return BodyMessage
      */
-    public function getBody(): array 
+    public function body(): BodyMessage
     {
         return $this->_body;
     }
@@ -77,9 +82,9 @@ class Request
      * Method
      * Retrieve a body from the request.
      * 
-     * @return array
+     * @return QueryString
      */
-    public function getQuery(): array 
+    public function query(): QueryString 
     {
         return $this->_query;
     }
@@ -92,14 +97,14 @@ class Request
      * 
      * @return bool 
      */
-    public function exists(mixed $key): bool
+    public function exists($key): bool
     {
         if (is_string($key)) {
-            return array_key_exists($key, $this->_body);
+            return array_key_exists($key, $this->_body->get());
         } else if (is_array($key)) {
             foreach ($key as $_ => $value) {
                 if (is_string($value)) {
-                    if (array_key_exists($value, $this->_body)) {
+                    if (array_key_exists($value, $this->_body->get())) {
                         return true;
                     }
                 }
@@ -117,7 +122,7 @@ class Request
      * 
      * @return bool 
      */
-    public function has(mixed $key): bool
+    public function has($key): bool
     {
         return $this->exists($key);
     }
@@ -228,16 +233,31 @@ class Request
 
     /**
      * Method
-     * Get an input element from the request.
+     * Get an input element from the request. Body + QueryString
      * 
      * @param string $key #
      * 
      * @return mixed
      */
-    function __get(string $key): mixed
+    function __get(string $key)
     {
-
+        if (!is_null($this->_body->get($key))) {
+            return $this->_body->get($key);
+        } else if (!is_null($this->_query->get($key))) {
+            return $this->_query->get($key);
+        } else {
+            return null;
+        }
     } 
+
+    /**
+     * Method
+     * Get an input element from the request.
+     * 
+     * @param string $key #
+     * 
+     * @return string|null
+     */
 
 
 

@@ -4,7 +4,7 @@ class Route
 
     public static function get($route, $function) 
     {
-        $path = self::getPath($route);
+        $path = self::getPath($_SERVER['REQUEST_URI']);
         if ($path === $route) {
             if ($_SERVER['REQUEST_METHOD'] ==='GET') {
                 $request = new Request();
@@ -18,7 +18,7 @@ class Route
 
     public static function post($route, $function) 
     {
-        $path = self::getPath($route);
+        $path = self::getPath($_SERVER['REQUEST_URI']);
         if ($path === $route) {
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $request = new Request();
