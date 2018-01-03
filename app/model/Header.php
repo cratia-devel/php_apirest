@@ -1,25 +1,51 @@
 <?php
+/**
+ * Header.php
+ * 
+ * @category Public
+ * @package  PACKAGE_EMPTY
+ * @author   Carlos A. Ratia V. <cratia@gmail.com>
+ * @license  GNU General Public License v3.0
+ * @link     https://github.com/cratia-devel/php_apirest
+ * PHP Version 7.2.0
+ */
 
+/**
+ * Class Header
+ *  
+ * @category Public
+ * @package  PACKAGE_EMPTY
+ * @author   Carlos A. Ratia V. <cratia@gmail.com>
+ * @license  GNU General Public License v3.0 
+ * @link     https://github.com/cratia-devel/php_apirest
+ */
 class Header
 {
-    private $header;
+    private $_header;
 
+    /**
+     * Method
+     * Constructor
+     */
     public function __construct(array $header = null)
     {
         if (!is_null($header)) {
-            $this->header = array();
+            $this->_header = array();
             foreach ($header as $key =>$value) {
-                $this->header[$key] = $value; 
+                $this->_header[$key] = $value; 
             }                
         }
-        $this->header = array();
+        $this->_header = array();
     }
 
-    public function __destruct()
-    {
-
-    }
-
+    /**
+     * Method
+     * Obtiene un valor especifico o todo el header del Response
+     * 
+     * @param string $attr Clave
+     * 
+     * @return mixed
+     */
     public static function get($attr = null) 
     {
         $header = array();
@@ -34,12 +60,27 @@ class Header
         return $header;
     } 
 
+    /**
+     * Method
+     * Obtiene un valor especifico o todo el header del Response
+     * 
+     * @return mixed
+     */
     public function getHeader(): array 
     {
-        return $this->header;
+        return $this->_header;
     }
 
-    public static function set($attr, $value)
+    /**
+     * Method
+     * Establece un valor especifico en el header del Response
+     * 
+     * @param string $attr  Clave
+     * @param mixed  $value Contenido de la clave
+     * 
+     * @return void
+     */
+    public static function set(string $attr, $value): void
     {
         header($attr.':'.$value);
     } 

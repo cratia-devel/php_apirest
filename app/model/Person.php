@@ -1,6 +1,7 @@
 <?php
 
-function generateRandomString($length = 10) {
+function generateRandomString($length = 10) 
+{
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $charactersLength = strlen($characters);
     $randomString = '';
@@ -16,16 +17,18 @@ class Person extends Model
     public $lastname;
     public $age;
 
-    public function __construct() {
+    public function __construct() 
+    {
         parent::__construct();
         $this->table = 'person';
         $this->firstname = generateRandomString();
         $this->lastname = generateRandomString();
-        $this->age = rand(10,100);
+        $this->age = rand(10, 100);
         
     }
 
-    function __destruct() {
+    function __destruct() 
+    {
         parent::__destruct();
     }
 

@@ -4,7 +4,7 @@
  * 
  * @category Public
  * @package  PACKAGE_EMPTY
- * @author   Carlos A. Ratia. V <cratia@gmail.com>
+ * @author   Carlos A. Ratia V. <cratia@gmail.com>
  * @license  GNU General Public License v3.0
  * @link     https://github.com/cratia-devel/php_apirest
  */
@@ -13,9 +13,9 @@
  * Class Request
  *  
  * @category Public
- * @package  Example
- * @author   Carlos A. Ratia. V <cratia@gmail.com>
- * @license  https://github.com/cratia-devel/php_apirest/blob/master/LICENSE 
+ * @package  PACKAGE_EMPTY
+ * @author   Carlos A. Ratia V. <cratia@gmail.com>
+ * @license  GNU General Public License v3.0 
  * @link     https://github.com/cratia-devel/php_apirest
  */
 class Request
@@ -41,7 +41,10 @@ class Request
      */
     function __construct()
     {
-        $URL_ALL = parse_url($_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'].$_SERVER['REQUEST_URI']);
+        $URL_ALL = $_SERVER['REQUEST_SCHEME'].'://';
+        $URL_ALL.= $_SERVER['SERVER_NAME'].':';
+        $URL_ALL.= $_SERVER['SERVER_PORT'].$_SERVER['REQUEST_URI'];
+        $URL_ALL = parse_url($URL_ALL);
         $this->scheme = isset($URL_ALL['scheme'])? $URL_ALL['scheme'] : null;
         $this->host = isset($URL_ALL['host'])? $URL_ALL['host'] : null;
         $this->port = isset($URL_ALL['port'])? $URL_ALL['port'] : null;

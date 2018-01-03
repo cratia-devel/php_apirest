@@ -4,7 +4,7 @@
  * 
  * @category Public
  * @package  PACKAGE_EMPTY
- * @author   Carlos A. Ratia. V <cratia@gmail.com>
+ * @author   Carlos A. Ratia V. <cratia@gmail.com>
  * @license  GNU General Public License v3.0
  * @link     https://github.com/cratia-devel/php_apirest
  * PHP Version 7.2.0
@@ -14,9 +14,9 @@
  * Class QueryString
  *  
  * @category Public
- * @package  Example
- * @author   Carlos A. Ratia. V <cratia@gmail.com>
- * @license  https://github.com/cratia-devel/php_apirest/blob/master/LICENSE 
+ * @package  PACKAGE_EMPTY
+ * @author   Carlos A. Ratia V. <cratia@gmail.com>
+ * @license  GNU General Public License v3.0 
  * @link     https://github.com/cratia-devel/php_apirest
  */
 class QueryString

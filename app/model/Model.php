@@ -1,5 +1,5 @@
 <?php
-class Model 
+class Model
 {
     protected $id;
     protected $created_at;
@@ -147,13 +147,13 @@ class Model
             }
         }
         switch ($type_query) {
-            case 'INSERT':
-                unset($rows['id']);
-                break;
-            case 'UPDATE':
-                break;
-            default:
-                break;
+        case 'INSERT':
+            unset($rows['id']);
+            break;
+        case 'UPDATE':
+            break;
+        default:
+            break;
         }
         return $rows;
     }
@@ -175,7 +175,7 @@ class Model
     public function hardDelete(int $id = null)
     {
         $id = is_null($id)? $this->id : $id;        
-        if($this->load($id)){
+        if ($this->load($id)) {
             list($query,$parameters) = QueryBuilder::Builder('DELETE', $this->table, array('id' => $id));
             $this->db->query($query, $parameters);
             return $this->db->commit();

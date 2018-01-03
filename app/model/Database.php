@@ -1,6 +1,6 @@
 <?php
 
-class Database 
+class Database
 {
     
     private $host           = 'localhost';
@@ -17,7 +17,8 @@ class Database
 
     private $_hasError        = false;
 
-    public function __construct() {
+    public function __construct() 
+    {
         $this->dns = 'mysql:host='.$this->host.';dbname='.$this->dbname;
         $this->options = array(
             PDO::ATTR_PERSISTENT        => true,
@@ -33,61 +34,70 @@ class Database
         }
     }
 
-    public function hasError() {
+    public function hasError() 
+    {
         return $this->_hasError;
     }
 
-    public function query($query, $parameters = NULL) {
+    public function query($query, $parameters = null) 
+    {
         $this->stmt = $this->pdo->prepare($query);
-        if(!is_null($parameters))
+        if(!is_null($parameters)) {
             $this->bindParams($parameters);
+        }
     }
 
-    private function execute() {
+    private function execute() 
+    {
         $this->stmt->execute();
     }
 
-    public function fetchAll() {
+    public function fetchAll() 
+    {
         $this->execute();
         $this->stmt->setFetchMode(PDO::FETCH_ASSOC);;
         return $this->stmt->fetchAll(); 
     }
 
-    public function bindParam($parameter, $variable, $data_type = NULL) {
+    public function bindParam($parameter, $variable, $data_type = null) 
+    {
         if(is_null($data_type)) {
             switch(true){
-                case is_null($variable):
-                    $data_type = PDO::PARAM_NULL;
-                    break;
-                case is_bool($variable):
-                    $data_type = PDO::PARAM_BOOL;
-                    break;
-                case is_int($variable):
-                    $data_type = PDO::PARAM_INT;
-                    break;
-                case is_string($variable):
-                    $data_type = PDO::PARAM_STR;
-                    break;
-                default:
-                    $data_type = PDO::PARAM_STR;
-                    $variable = strval($variable);
-                    break;    
+            case is_null($variable):
+                $data_type = PDO::PARAM_NULL;
+                break;
+            case is_bool($variable):
+                $data_type = PDO::PARAM_BOOL;
+                break;
+            case is_int($variable):
+                $data_type = PDO::PARAM_INT;
+                break;
+            case is_string($variable):
+                $data_type = PDO::PARAM_STR;
+                break;
+            default:
+                $data_type = PDO::PARAM_STR;
+                $variable = strval($variable);
+                break;    
             }
         }
         return $this->stmt->bindParam($parameter, $variable, $data_type); 
     }
 
-    public function bindParams($parameters) {
+    public function bindParams($parameters) 
+    {
         foreach($parameters as $key => $value) {
             $this->bindParam($key, $value);
         }
     }
 
-    public function getError() {
+    public function getError() 
+    {
         return $this->error;
     }
 
-    public function commit(){
+    public function commit()
+    {
         return $this->stmt->execute();
     }
 }
